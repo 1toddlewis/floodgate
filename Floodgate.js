@@ -22,10 +22,18 @@ const objGame = {
     "name": title,
     "page": 1,
     "time": {
-      "start": Date.now()
+      "start": getDate()
     },
     "playerCounts": []
 };
+
+// Small function here to encapsulate the creation of a date.
+// May update it in the future to make it BGG XML API friendly, e.g. 2023-07-16
+function getDate() {
+  let date = new Date(Date.now());
+  return date;
+}
+
 
 // Open a connection to IndexedDB
 let db;
@@ -166,27 +174,31 @@ async function loopThroughPlays() {
         // if we're done then add a finish time.
         if (numPlays < 0) {
           objGame.page--;
-          objGame.time.finish = Date.now();
+          objGame.time.finish = getDate();
         }
-      })
-      .then (obj => {
-        writeToIndexedDB(db, dsName, objGame);
       })
       .catch(error => {
         // Handle any errors that occur during the fetch request
         console.error(error);
         numPlays = -1;
+      })
+      .finally(obj => {
+
+        // Loop though our playerCounts array and fill in any indices
+        // that were skipped and thus are empty. Cannot use map
+        // or forEach because those don't stop on missing elements!
+        for (i=0; i<objGame.playerCounts.length; i++) {
+          let c = objGame.playerCounts[i];
+          if (isNaN(c)) objGame.playerCounts[i] = 0;
+        }
+        writeToIndexedDB(db, dsName, objGame);
       });
   };
-
-  // write our object to the data store.
-  await writeToIndexedDB(db, dsName, objGame);
   
   // Close the connection to IndexedDB
   db.close();
   console.log('IndexedDB connection closed.');
 }
-
 
 // Open connection
 await openIndexedDB();

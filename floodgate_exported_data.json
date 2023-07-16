@@ -1,0 +1,55 @@
+{
+  "games": [
+    {
+      "bggid": 252556,
+      "name": "Bosk",
+      "page": 42,
+      "time": {
+        "start": "2023-07-16T18:28:39.211Z",
+        "finish": "2023-07-16T18:29:10.912Z"
+      },
+      "playerCounts": [
+        1411,
+        177,
+        1185,
+        736,
+        760,
+        5
+      ]
+    },
+    {
+      "bggid": 258210,
+      "name": "Blitzkrieg!: World War Two in 20 Minutes",
+      "page": 164,
+      "time": {
+        "start": "2023-07-16T18:31:50.692Z",
+        "finish": "2023-07-16T18:37:56.763Z"
+      },
+      "playerCounts": [
+        7140,
+        1198,
+        10679,
+        22,
+        7
+      ]
+    },
+    {
+      "bggid": 263695,
+      "name": "Sagrada: The Great Facades – Passion",
+      "page": 14,
+      "time": {
+        "start": "2023-07-16T18:30:43.173Z",
+        "finish": "2023-07-16T18:30:57.046Z"
+      },
+      "playerCounts": [
+        762,
+        95,
+        346,
+        99,
+        83,
+        9,
+        3
+      ]
+    }
+  ]
+}
