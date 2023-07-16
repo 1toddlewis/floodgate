@@ -63,6 +63,9 @@ Chrome extension, which you can find here:
 
 https://chrome.google.com/webstore/detail/indexeddb-exporter/kngligbmoipnmljnpphhocajldjplgcj/
 
+floodgate_exported_data.json is an example of the output from IndexedDB
+Exporter.
+
 ## a discussion about time
 The first iteration of Floodgate stored epoch timestamps in milliseconds, e.g.:
 
@@ -101,3 +104,24 @@ hours were added to that value.
 
 I doubt anyone will be using these times for mission critical work, but just in
 case be aware that this peculiar behavior exists.
+
+## todo
+There are some edge cases that can make tiny differences. First, let's look at
+the data returned by the BGG XMLAPI2. It first sorts plays by date BUT NOT BY
+TIME, and then by id. If a user logs a play for a game for which you are
+currently polling, then that play may push the stack of plays down one row. You
+may not catch it if your polling has already passed that date.
+
+People can also post plays from the future! As I type on 16 JUL 2023, there is a
+logged play of Sagrada dated 23 AUG 2023. With an id that suggests it was really
+entered on 31 MAY 2023. This is the second problem: BGG only tracks the date
+entered for the play. It does not capture the time that the play was recorded.
+
+This makes implementing incremental updates problematic. I could approximate the
+behavior by requesting plays from the finish timestamp in the IndexedDB record
+and even look for ids that are higher than the last one encountered, but I
+wouldn't catch plays that were retroactively entered for earlier dates. Over
+time, more discrepancies could pile up. The best way to ensure accurate data –
+if it really is critical – would be to grab a fresh set of tallies. Which is
+what Floodgate currently does when you run it again on a game you have already
+polled.
