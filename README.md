@@ -96,8 +96,8 @@ so:
 
 7/16/2023 17:00:00
 
-Which Google Sheets interprets as local time. Seven hours were added to that
-value.
+Which Google Sheets interprets as local time which today is PDT for me. Seven
+hours were added to that value.
 
 I doubt anyone will be using these times for mission critical work, but just in
 case be aware that this peculiar behavior exists.
