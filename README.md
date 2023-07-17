@@ -108,9 +108,13 @@ case be aware that this peculiar behavior exists.
 ## todo
 There are some edge cases that can make tiny differences. First, let's look at
 the data returned by the BGG XMLAPI2. It first sorts plays by date BUT NOT BY
-TIME, and then by id. If a user logs a play for a game for which you are
-currently polling, then that play may push the stack of plays down one row. You
-may not catch it if your polling has already passed that date.
+TIME, and then by id IN ASCENDING ORDER. The most recent play logged for a day
+will be the last play shown before the previous day's plays are listed. If a
+user logs a play for a game while you are currently polling, then that play
+will push the stack of plays down one row. You may not catch the new play if
+your polling has already passed that date, but it will push a game that is at
+the bottom of the current page down to the top of the next page that Floodgate
+requests. It will be counted twice.
 
 People can also post plays from the future! As I type on 16 JUL 2023, there is a
 logged play of Sagrada dated 23 AUG 2023. With an id that suggests it was really
