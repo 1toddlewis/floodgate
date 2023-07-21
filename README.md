@@ -8,6 +8,8 @@ the next set of sub tabs click on the double-right arrow icon to reveal
 "Snippets." Once there, click on the plus sign to add a new snippet. Copy and
 paste the contents of floodgate.js into this snippet, and then save.
 
+You can watch a YouTube video here: https://www.youtube.com/watch?v=mWLEf0EnF5g
+
 Floodgate is meant to be run while you are browsing a game page on
 Boardgamegeek.com. It checks the URL of the page and looks for the game ID. For
 example, if you are browsing the page for Sagrada, the URL is:
