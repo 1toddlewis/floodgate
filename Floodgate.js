@@ -172,7 +172,7 @@ async function loopThroughPlays() {
         console.log(numPlays > 0 ? `${numPlays} records remaining` : 'Finished!');
 
         // if we're done then add a finish time.
-        if (numPlays < 0) {
+        if (numPlays < 1) {
           objGame.page--;
           objGame.time.finish = getDate();
         }
