@@ -1,4 +1,5 @@
 # floodgate
+
 Data mining tool for BoardGameGeek.com. Returns the number of plays logged at
 each player count for the game you are currently browsing.
 
@@ -22,27 +23,27 @@ Floodgate will do the following:
 
 - Open a connection to your browser's IndexedDB data store;
 - Check to see if an incomplete record for this game already exists. This might
-   happen if you issue too many requests in a short amount of time, and receive
-   a 429 error after tripping the API call rate limits on BGG.
+  happen if you issue too many requests in a short amount of time, and receive
+  a 429 error after tripping the API call rate limits on BGG.
 - If a previous, incomplete record exists then Floodgate will pick up where it
-   left off and continue making requests. Otherwise it will start all over from
-   the beginning.
+  left off and continue making requests. Otherwise it will start all over from
+  the beginning.
 - Floodgate will begin requesting pages of logged plays for the game using the
-   BGG XMLAPI2.
+  BGG XMLAPI2.
 - Each page returns a maximum of 100 records.
 - Floodgate will iterate through the records, capturing the quantity logged in
-   each play, and the number of players that were recorded.
+  each play, and the number of players that were recorded.
 - Floodgate keeps a running total for every player count encountered.
 - If no players were recorded, then Floodgate will track that total for 0
-   players.
+  players.
 - Cumulative player count totals are recorded in an array, with the index of the
-   array correlating to the number of players.
+  array correlating to the number of players.
 - After each page, Floodgate writes/updates an object in the IndexedDB data
-   store.
+  store.
 - The data store uses "bggid" as a primary key, and has a secondary non-unique
-   key defined for "name".
+  key defined for "name".
 - When the requests are finished, Floodgate writes once more to add a finish
-   time, and closes the data connection to IndexedDB.
+  time, and closes the data connection to IndexedDB.
 
 You can find the data for all of the games you've analyzed on the "Application"
 tab within Chrome Developer Tools. In the left-hand panel, go to the "Storage"
@@ -60,15 +61,16 @@ You can delete any entry by right-clicking on it in Windows or CTRL+clicking on
 a Mac, and then selecting "Delete."
 
 If you want to export all of the floodgate data to a JSON file for backup
-purposes or to use elsewhere, then I recommend you load the [IndexedDB Exporter](https://chrome.google.com/webstore/detail/indexeddb-exporter/kngligbmoipnmljnpphhocajldjplgcj/)
+purposes or to use elsewhere, then I recommend you load the [IndexedDB Exporter](https://chromewebstore.google.com/detail/indexeddb-exporter/kngligbmoipnmljnpphhocajldjplgcj)
 Chrome extension, which you can find here:
 
-https://chrome.google.com/webstore/detail/indexeddb-exporter/kngligbmoipnmljnpphhocajldjplgcj/
+https://chromewebstore.google.com/detail/indexeddb-exporter/kngligbmoipnmljnpphhocajldjplgcj
 
 floodgate_exported_data.json is an example of the output from IndexedDB
 Exporter.
 
 ## a discussion about time
+
 The first iteration of Floodgate stored epoch timestamps in milliseconds, e.g.:
 
 Sunday, July 16, 2023 at 10:00:00 AM Pacific Daylight Time is 1689526800000.
@@ -108,6 +110,7 @@ I doubt anyone will be using these times for mission critical work, but just in
 case be aware that this peculiar behavior exists.
 
 ## todo
+
 There are some edge cases that can make tiny differences. First, let's look at
 the data returned by the BGG XMLAPI2. It first sorts plays by date BUT NOT BY
 TIME, and then by id IN ASCENDING ORDER. The most recent play logged for a day
